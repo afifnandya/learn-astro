@@ -7,19 +7,36 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "story:dev": "histoire dev",
+    "story:build": "histoire build",
+    "story:preview": "histoire preview"
   },
   "devDependencies": {
     "@astrojs/image": "^0.3.6",
     "@astrojs/tailwind": "^1.0.0",
     "@astrojs/vue": "^1.0.0",
+    "@histoire/plugin-vue": "^0.10.7",
+    "@types/humps": "^2.0.2",
+    "@types/lodash-es": "^4.17.6",
+    "@types/qs": "^6.9.7",
+    "@vitejs/plugin-vue": "^3.0.3",
     "astro": "^1.0.6",
+    "histoire": "^0.10.7",
+    "prettier": "^2.7.1",
+    "prettier-plugin-astro": "^0.5.3",
     "vue": "^3.2.30"
   },
   "dependencies": {
+    "@astrojs/netlify": "^1.0.1",
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tailwindcss/forms": "^0.5.2",
     "astro-i18next": "^1.0.0-beta.4",
-    "i18next-fs-backend": "^1.1.5"
+    "humps": "^2.0.1",
+    "i18next-fs-backend": "^1.1.5",
+    "ky": "^0.31.1",
+    "ky-universal": "^0.10.1",
+    "lodash-es": "^4.17.21",
+    "qs": "^6.11.0"
   }
 }
