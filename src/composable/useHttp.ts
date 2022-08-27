@@ -1,5 +1,5 @@
-import ky, { HTTPError } from "ky-universal";
-import type { Options, SearchParamsOption } from "ky";
+// import ky, { HTTPError } from "ky-universal";
+// import type { Options, SearchParamsOption } from "ky";
 import humps from "humps";
 import qs from "qs";
 import { API_BASE_URL, API_DOMAIN, API_MAJOR_VERSION } from "../constants";
@@ -8,7 +8,7 @@ import { isContainQueryString, isContainHttp } from "src/helper/url";
 type paramConfig = {
   url: string;
   method?: "POST" | "GET" | "PUT" | "PATCH" | "DELETE";
-  headers?: SearchParamsOption;
+  headers?: Record<string, unknown>;
   data?: Record<string, unknown>;
   params?: Record<string, unknown>;
   canRetry?: boolean;
@@ -46,13 +46,13 @@ async function useHttp(paramConfig: paramConfig): Promise<State> {
       client_type: paramConfig.clientType || "web",
     };
 
-    const options: Options = {
+    const options: RequestInit = {
       method: paramConfig.method || "GET",
       headers: DEFAULT_HEADERS,
     };
 
     if (paramConfig.data) {
-      options.json = humps.decamelizeKeys(paramConfig.data);
+      options.body = JSON.stringify(humps.decamelizeKeys(paramConfig.data));
     }
 
     const isURLContainQueryString = isContainQueryString(paramConfig.url)
@@ -82,24 +82,27 @@ async function useHttp(paramConfig: paramConfig): Promise<State> {
           ...paramConfig.params,
         });
       }
-      options.searchParams = new URLSearchParams(parsedParams);
+      const finalSearchParams = new URLSearchParams(parsedParams).toString();
+      paramConfig.url = `${paramConfig.url}?${finalSearchParams}`;
     }
 
-    const response = await ky(paramConfig.url, options);
+    const response = await fetch(paramConfig.url, options);
     const responseJson = await response.json();
     state.data = humps.camelizeKeys(responseJson);
     state.httpStatus = response.status;
   } catch (err) {
-    if (err instanceof HTTPError) {
-      const { status } = err.response;
-      const jsonVal = await err.response.json();
-      state.httpStatus = status;
-      state.error.message = jsonVal.message;
-      state.error.detail = err;
-    } else {
-      state.error.detail = err;
-      state.error.message = "Something went wrong when setup http call";
-    }
+    state.error.detail = err;
+    state.error.message = "Something went wrong when setup http call";
+    // if (err instanceof HTTPError) {
+    //   const { status } = err.response;
+    //   const jsonVal = await err.response.json();
+    //   state.httpStatus = status;
+    //   state.error.message = jsonVal.message;
+    //   state.error.detail = err;
+    // } else {
+    //   state.error.detail = err;
+    //   state.error.message = "Something went wrong when setup http call";
+    // }
   }
   return state;
 }
