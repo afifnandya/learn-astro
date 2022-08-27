@@ -2,6 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "@/*": ["src/*"],
       "@assets/*": ["src/assets/*"],
       "@components/*": ["src/components/*"],
       "@section/*": ["src/section/*"],
@@ -20,6 +21,14 @@
     // Enable strict type checking.
     "strict": true,
     // Error when a value import is only used as a type.
-    "importsNotUsedAsValues": "error"
-  }
+    "importsNotUsedAsValues": "error",
+    "jsx": "preserve",
+    "allowSyntheticDefaultImports": true,
+    "types": ["vite/client","unplugin-icons/types/vue"]
+  },
+  "include": [
+    "src/env.d.ts",
+    "src/**/*",
+    "src/**/*.vue"
+  ]
 }

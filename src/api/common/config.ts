@@ -80,7 +80,7 @@ export interface GetConfigAPI {
 export async function getConfig(): Promise<{
   isSuccess: boolean;
   message: string;
-  data: Record<string, any>;
+  data: GetConfigAPI["data"] | null;
 }> {
   const defaultErrorMessage = "Oops, something went wrong, failed get config";
   try {
@@ -96,7 +96,7 @@ export async function getConfig(): Promise<{
       return {
         isSuccess: false,
         message: "config object is empty",
-        data: {},
+        data: null,
       };
     }
 
@@ -104,7 +104,7 @@ export async function getConfig(): Promise<{
       return {
         isSuccess: false,
         message: response.message || defaultErrorMessage,
-        data: {},
+        data: null,
       };
     }
 
@@ -117,7 +117,7 @@ export async function getConfig(): Promise<{
     return {
       isSuccess: false,
       message: defaultErrorMessage,
-      data: {},
+      data: null,
     };
   }
 }

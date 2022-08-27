@@ -3,13 +3,15 @@ import Layout from "../layouts/Layout.astro";
 import { t, changeLanguage } from "i18next";
 import MyButton from "../components/MyButton.vue";
 import Navbar from "@section/navbar/Navbar.astro";
+import HomeAPIRequest from "@/partial/home/HomeAPIRequest.vue";
 changeLanguage("en");
 ---
 
 <Layout title="Welcome to Astro.">
-	<main class="">
-		<Navbar />
-		<p>{t("welcome")}</p>
-		<MyButton count={10} />
-	</main>
+  <HomeAPIRequest client:load />
+  <main class="">
+    <Navbar />
+    <p>{t("welcome")}</p>
+    <MyButton client:load count={10} />
+  </main>
 </Layout>

@@ -1,0 +1,28 @@
+---
+import logo from "@assets/img/logo-new-full.png";
+import { Picture } from "@astrojs/image/components";
+import { config } from "@/stores/config";
+import { cityOption, fetchCity } from "@/stores/city";
+import NavbarMeta from "./NavbarMeta.vue";
+import SearchSuggestion from "@/components/SearchSuggestion.vue";
+await fetchCity();
+console.log("cityOption", cityOption.value);
+---
+
+<div>
+  <div class="sticky w-full mx-auto bg-white shadow top-0">
+    <div class="lg:px-2 container mx-auto">
+      <div class="flex items-center">
+        <Picture src={logo} widths={[130]} sizes="130px" format="webp" />
+        <pre>{  config.value.appTitle }</pre>
+        <div>{config.value.supportPhone}</div>
+        <div class="flex-auto"></div>
+        <button>Sign In</button>
+        <div class="ml-2">
+          <NavbarMeta cityOption={cityOption.value} client:idle />
+          <SearchSuggestion isLoading={false} client:idle />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

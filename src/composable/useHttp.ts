@@ -1,6 +1,6 @@
 import ky, { HTTPError } from "ky-universal";
 import type { Options, SearchParamsOption } from "ky";
-import { camelizeKeys, decamelizeKeys } from "humps";
+import humps from "humps";
 import qs from "qs";
 import { API_BASE_URL, API_DOMAIN, API_MAJOR_VERSION } from "../constants";
 import { isContainQueryString, isContainHttp } from "src/helper/url";
@@ -52,7 +52,7 @@ async function useHttp(paramConfig: paramConfig): Promise<State> {
     };
 
     if (paramConfig.data) {
-      options.json = decamelizeKeys(paramConfig.data);
+      options.json = humps.decamelizeKeys(paramConfig.data);
     }
 
     const isURLContainQueryString = isContainQueryString(paramConfig.url)
@@ -67,7 +67,7 @@ async function useHttp(paramConfig: paramConfig): Promise<State> {
       let parsedParamsStringify = qs.stringify(REQUIRED_PARAMS);
       if (paramConfig.params) {
         parsedParamsStringify = qs.stringify(
-          decamelizeKeys({
+          humps.decamelizeKeys({
             ...REQUIRED_PARAMS,
             ...paramConfig.params,
           })
@@ -77,7 +77,7 @@ async function useHttp(paramConfig: paramConfig): Promise<State> {
     } else {
       let parsedParams = REQUIRED_PARAMS as Record<string, any>;
       if (paramConfig.params) {
-        parsedParams = decamelizeKeys({
+        parsedParams = humps.decamelizeKeys({
           ...REQUIRED_PARAMS,
           ...paramConfig.params,
         });
@@ -87,7 +87,7 @@ async function useHttp(paramConfig: paramConfig): Promise<State> {
 
     const response = await ky(paramConfig.url, options);
     const responseJson = await response.json();
-    state.data = camelizeKeys(responseJson);
+    state.data = humps.camelizeKeys(responseJson);
     state.httpStatus = response.status;
   } catch (err) {
     if (err instanceof HTTPError) {
