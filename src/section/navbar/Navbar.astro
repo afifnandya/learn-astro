@@ -5,13 +5,19 @@ import { config } from "@/stores/config";
 import { cityOption, fetchCity } from "@/stores/city";
 import NavbarMeta from "./NavbarMeta.vue";
 import SearchSuggestion from "@/components/SearchSuggestion.vue";
-await fetchCity();
+import { getCity } from "@/api/common/city";
+import type { City } from "@/types/City";
+const result = await getCity();
+let cities: City[] = [];
+if (result.isSuccess && result.data) {
+  cities = result.data;
+}
 console.log("cityOption", cityOption.value);
 ---
 
 <div>
-  <div class="sticky w-full mx-auto bg-white shadow top-0">
-    <div class="lg:px-2 container mx-auto">
+  <div class="sticky top-0 w-full mx-auto bg-white shadow">
+    <div class="container mx-auto lg:px-2">
       <div class="flex items-center">
         <Picture src={logo} widths={[130]} sizes="130px" format="webp" />
         <pre>{  config.value.appTitle }</pre>
@@ -19,7 +25,7 @@ console.log("cityOption", cityOption.value);
         <div class="flex-auto"></div>
         <button>Sign In</button>
         <div class="ml-2">
-          <NavbarMeta cityOption={cityOption.value} client:idle />
+          <NavbarMeta cityOption={cities} client:idle />
           <SearchSuggestion isLoading={false} client:idle />
         </div>
       </div>

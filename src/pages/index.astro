@@ -5,8 +5,6 @@ import MyButton from "../components/MyButton.vue";
 import Navbar from "@section/navbar/Navbar.astro";
 import HomeAPIRequest from "@/partial/home/HomeAPIRequest.vue";
 import { setupConfig } from "@/stores/config";
-import { fetchCity } from "@/stores/city";
-await fetchCity();
 await setupConfig();
 changeLanguage("en");
 ---
