@@ -7,11 +7,19 @@ import HomeAPIRequest from "@/partial/home/HomeAPIRequest.vue";
 import { setupConfig } from "@/stores/config";
 await setupConfig();
 changeLanguage("en");
+import { getCity } from "@/api/common/city";
+import type { City } from "@/types/City";
+const result = await getCity();
+let cities: City[] = [];
+if (result.isSuccess && result.data) {
+  cities = result.data;
+}
 ---
 
 <Layout title="Welcome to Astro.">
   <HomeAPIRequest client:load />
   <main class="">
+    <pre>{ JSON.stringify(cities)}</pre>
     <Navbar />
     <p>{t("welcome")}</p>
     <MyButton client:load count={10} />
