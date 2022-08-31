@@ -3,6 +3,6 @@
 </template>
 
 <script lang="ts" setup>
-const title = "Story title";
 import SearchRestaurant from "./SearchRestaurant.vue";
+const title = "Search Restaurant";
 </script>

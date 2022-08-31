@@ -1,4 +1,7 @@
 export function isContainHttp(link: string) {
+  if (typeof link !== "string") {
+    return false;
+  }
   if (link.indexOf("http://") == 0 || link.indexOf("https://") == 0) {
     return true;
   }

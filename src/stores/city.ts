@@ -2,8 +2,15 @@ import { computed, ref, watch } from "vue";
 import type { City } from "@/types/City";
 import { getCity } from "@/api/common/city";
 
-const selectedCityId = ref("");
-
+const selectedCityId = ref("1");
+const bangkokCity: City = {
+  id: "1",
+  type: "cities",
+  attributes: {
+    name: "Bangkok",
+    homeDescription: "",
+  },
+};
 const selectedCity = computed(() => {
   const filter = cityOption.value.filter(
     (city) => city.id === selectedCityId.value
@@ -23,11 +30,7 @@ const selectedCity = computed(() => {
 const selectedCityName = computed(() => {
   return selectedCity.value.attributes.name;
 });
-const cityOption = ref<City[]>([]);
-
-watch(selectedCity, (newVal) => {
-  console.log("selected city change", newVal);
-});
+const cityOption = ref<City[]>([bangkokCity]);
 
 async function fetchCity() {
   const { isSuccess, data } = await getCity();
@@ -37,6 +40,7 @@ async function fetchCity() {
 }
 
 export {
+  bangkokCity,
   selectedCityId,
   selectedCity,
   cityOption,

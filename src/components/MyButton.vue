@@ -1,4 +1,6 @@
-<template></template>
+<template>
+  {{ selectedCityName }}
+</template>
 
 <script lang="ts" setup>
 import { selectedCityId, selectedCityName } from "@/stores/city";

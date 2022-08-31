@@ -5,7 +5,6 @@
       :selectedCityId="selectedCityId"
       @update:selectedCityId="(newValue) => setData(newValue)"
     />
-    <button id="bubu"></button>
   </div>
 </template>
 
@@ -14,7 +13,7 @@ import type { City } from "@/types/City";
 import { onMounted, PropType, watch } from "vue";
 import { ref } from "vue";
 import SelectCity from "@/components/SelectCity.vue";
-// import { cityOption as storeCities } from "@/stores/city";
+import { cityOption as storeCities } from "@/stores/city";
 import { selectedCityId } from "@/stores/city";
 const props = defineProps({
   cityOption: {
@@ -31,12 +30,12 @@ function setData(newval: string) {
   selectedCityId.value = newval;
 }
 
-// watch(storeCities.value, (newVal) => {
-//   console.log("watch val change", newVal);
-//   if (newVal.length) {
-//     cities.value = [...newVal, ...newVal];
-//   }
-// });
+watch(storeCities.value, (newVal) => {
+  console.log("watch val change", newVal);
+  if (newVal.length) {
+    cities.value = [...newVal, ...newVal];
+  }
+});
 // onMounted(() => {
 //   console.log("on mounteed");
 //   cities.value.push({

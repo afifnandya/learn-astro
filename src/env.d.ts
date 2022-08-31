@@ -1,4 +1,3 @@
-/// <reference types="@astrojs/image/client" />
 /// <reference types="@histoire/plugin-vue/components" />
 declare module "*.vue" {
   import { DefineComponent } from "vue";

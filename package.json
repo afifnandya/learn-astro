@@ -13,7 +13,6 @@
     "story:preview": "histoire preview"
   },
   "devDependencies": {
-    "@astrojs/image": "^0.3.6",
     "@astrojs/tailwind": "^1.0.0",
     "@astrojs/vue": "^1.0.0",
     "@histoire/plugin-vue": "^0.10.7",
@@ -30,6 +29,8 @@
     "postcss": "^8.4.16",
     "prettier": "^2.7.1",
     "prettier-plugin-astro": "^0.5.3",
+    "ts-essentials": "^9.3.0",
+    "typescript": "^4.8.2",
     "unplugin-icons": "^0.14.8",
     "vue": "^3.2.30"
   },
@@ -39,11 +40,13 @@
     "@tailwindcss/forms": "^0.5.2",
     "@vueuse/core": "^9.1.1",
     "astro-i18next": "^1.0.0-beta.4",
+    "dayjs": "^1.11.5",
     "humps": "^2.0.1",
     "i18next-fs-backend": "^1.1.5",
     "ky": "^0.31.1",
     "ky-universal": "^0.10.1",
     "lodash-es": "^4.17.21",
+    "notyf": "^3.10.0",
     "qs": "^6.11.0"
   }
 }

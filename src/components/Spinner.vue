@@ -6,8 +6,8 @@
       aria-hidden="true"
       role="img"
       class="iconify iconify--line-md"
-      width="32"
-      height="32"
+      :width="parsedProps"
+      :height="parsedProps"
       preserveAspectRatio="xMidYMid meet"
       viewBox="0 0 24 24"
     >
@@ -37,6 +37,27 @@
     </svg>
   </span>
 </template>
+
+<script lang="ts" setup>
+import { computed, toRefs } from "vue";
+const props = defineProps({
+  size: {
+    type: String,
+    default: "md",
+  },
+});
+
+const { size } = toRefs(props);
+
+const parsedProps = computed(() => {
+  if (size.value === "md") {
+    return 32;
+  }
+  if (size.value === "sm") {
+    return 24;
+  }
+});
+</script>
 
 <script lang="ts">
 export default {
