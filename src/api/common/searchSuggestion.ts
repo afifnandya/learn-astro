@@ -1,7 +1,7 @@
 import useHttp from "@/composable/useHttp";
 import { isEmpty } from "lodash-es";
 
-export interface SearchSuggestionResponse {
+export type SearchSuggestionResponse = {
   data: {
     restaurants: {
       id: number;
@@ -27,7 +27,7 @@ export interface SearchSuggestionResponse {
   message: null;
   success: boolean;
   didYouMean: any[];
-}
+};
 
 type ResultSection = {
   id: number;

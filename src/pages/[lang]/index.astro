@@ -1,0 +1,25 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Navbar from "@section/navbar/Navbar.astro";
+import HomeAPIRequest from "@/partial/home/HomeAPIRequest.vue";
+import HomeBanner from "@/partial/home/HomeBanner.vue";
+import { setupConfig } from "@/stores/config";
+import "@/assets/css/index.css";
+import { init, addLang, translate } from "@/composable/useTranslate";
+await setupConfig();
+const params = Astro.params;
+const lang = params.lang as string;
+
+await init(lang);
+addLang();
+---
+
+<Layout title="Welcome to Astro.">
+  <HomeAPIRequest client:load />
+  <main class="">
+    <Navbar />
+    <HomeBanner title="hh" subTitle="sub" image="" totalCover={100} />
+    <p>{translate("welcome")}</p>
+    <p>{translate("kucing")}</p>
+  </main>
+</Layout>

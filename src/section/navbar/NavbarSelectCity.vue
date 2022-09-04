@@ -1,9 +1,10 @@
 <template>
   <div>
     <SelectCity
+      class="text-left"
       :cities="cities"
       :selectedCityId="selectedCityId"
-      @update:selectedCityId="(newValue) => setData(newValue)"
+      @update:selectedCityId="(newValue: string) => setData(newValue)"
     />
   </div>
 </template>

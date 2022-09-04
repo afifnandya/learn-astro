@@ -26,6 +26,7 @@ type SrcSet = {
     minWidth: number;
     maxWidth: number;
   };
+  height?: number;
   pixelDensity?: string;
   useMutator?: boolean;
 };
@@ -49,10 +50,14 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  height: {
+    type: String,
+  },
 });
 
-const { sources, width, src } = props;
+const { sources, width, src, height } = props;
 const widthInNumber = typeof width === "string" ? parseInt(width) : 0;
+const heightInNumber = typeof height === "string" ? parseInt(height) : 0;
 const imageSources: {
   format: string | undefined;
   mediaQuery: string | undefined;
@@ -73,7 +78,7 @@ function genereteSrcSet({
   mutatorOption,
   src,
 }: {
-  mutatorOption?: { width: number; format?: string };
+  mutatorOption?: { width: number; format?: string; height?: number };
   src: string;
 }) {
   if (!src) {
@@ -84,6 +89,7 @@ function genereteSrcSet({
       width: mutatorOption.width,
       isWebp: mutatorOption.format === "webp",
       image: src,
+      height: mutatorOption.height || 0,
     });
   }
   return src;
@@ -93,9 +99,11 @@ function generateImageURL({
   width,
   isWebp,
   image,
+  height,
   isEnlarge = false,
 }: {
   width: number;
+  height: number;
   isWebp: boolean;
   image: string;
   isEnlarge?: boolean;
@@ -103,7 +111,7 @@ function generateImageURL({
   return useImageMutator({
     image,
     width,
-    height: 0,
+    height: height,
     isWebp: isWebp,
     isEnlarge,
   });
@@ -111,11 +119,19 @@ function generateImageURL({
 
 function generateDefaultWebp() {
   const webpImage = genereteSrcSet({
-    mutatorOption: { width: widthInNumber, format: "webp" },
+    mutatorOption: {
+      width: widthInNumber,
+      format: "webp",
+      height: heightInNumber,
+    },
     src: src,
   });
   const webpImageRetina = genereteSrcSet({
-    mutatorOption: { width: widthInNumber * 2, format: "webp" },
+    mutatorOption: {
+      width: widthInNumber * 2,
+      format: "webp",
+      height: heightInNumber,
+    },
     src: src,
   });
   const finalImgSrc = `${webpImage} 1x, ${webpImageRetina} 2x`;
@@ -127,7 +143,7 @@ function generateDefaultWebp() {
 }
 
 function init() {
-  if (Array.isArray(sources)) {
+  if (Array.isArray(sources) && sources.length) {
     sources.forEach((imgSource) => {
       const usedWidth =
         imgSource.breakpoint?.maxWidth || imgSource.breakpoint?.minWidth || 0;
@@ -141,7 +157,11 @@ function init() {
           : undefined,
         source: imgSource.useMutator
           ? genereteSrcSet({
-              mutatorOption: { width: usedWidth, format: imgSource.format },
+              mutatorOption: {
+                width: usedWidth,
+                format: imgSource.format,
+                height: imgSource.height,
+              },
               src: imgSource.source,
             })
           : imgSource.source,

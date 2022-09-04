@@ -1,6 +1,10 @@
 <template>
   <div class="relative">
-    <slot name="input" :inputHandler="inputHandler">
+    <slot
+      name="input"
+      :inputHandler="inputHandler"
+      :focusHandler="focusHandler"
+    >
       <input
         type="text"
         class="w-full p-1 border border-gray-400 rounded-lg"
@@ -12,7 +16,7 @@
 
     <div
       v-show="isLoading || isError || showResult"
-      class="absolute bottom-[-40px] right-0 w-full border border-gray-400 border-t-0 p-2 rounded-lg"
+      class="absolute top-[20px] right-0 w-full border border-gray-400 border-t-0 p-2 rounded-lg"
     >
       <div class="w-full" v-show="isLoading">
         <slot name="loading">

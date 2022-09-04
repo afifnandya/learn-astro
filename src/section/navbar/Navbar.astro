@@ -13,15 +13,13 @@ await fetchCity();
     <div class="container mx-auto lg:px-2">
       <div class="flex items-center">
         <HhImage src={logo} alt="image" sources={[]} width="130" client:load />
-        <!-- <Picture src={logo} widths={[130]} sizes="130px" format="webp" /> -->
-        <div>{config.value.supportPhone}</div>
         <div class="flex-auto"></div>
         <div class="flex items-center justify-between">
           <NavbarSearch class="mr-2" client:idle />
-          <button class="mr-2">Sign In</button>
           <div class="flex items-center ml-2">
             <NavbarMeta cityOption={cityOption.value} client:idle />
           </div>
+          <button class="mr-2">Sign In</button>
         </div>
       </div>
     </div>

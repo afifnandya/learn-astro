@@ -1,5 +1,5 @@
 .custom-dropdown {
-  @apply pl-1 text-center;
+  @apply pl-1;
 }
 
 .custom-dropdown select {
