@@ -30,6 +30,11 @@ const selectedCity = computed(() => {
 const selectedCityName = computed(() => {
   return selectedCity.value.attributes.name;
 });
+
+const selectedCityHomeDescription = computed(() => {
+  return selectedCity.value.attributes.homeDescription;
+});
+
 const cityOption = ref<City[]>([bangkokCity]);
 
 async function fetchCity() {
@@ -46,4 +51,5 @@ export {
   cityOption,
   fetchCity,
   selectedCityName,
+  selectedCityHomeDescription,
 };

@@ -1,7 +1,8 @@
 import { ref } from "vue";
 import type { GetConfigAPI } from "@/api/common/config";
 import { getConfig } from "@/api/common/config";
-import { isEmpty } from "lodash-es";
+import { DEFAULT_LANG } from "@/constants";
+import { isClient } from "@vueuse/shared";
 
 const config = ref<GetConfigAPI["data"]>({
   enableGiftCardFeature: false,
@@ -71,6 +72,10 @@ const config = ref<GetConfigAPI["data"]>({
   deliveryFeeInBaht: 0,
 });
 
+const path = isClient ? window.location.pathname.split("/") : [];
+const clientLang = path.length ? path[1] : DEFAULT_LANG;
+let serverLang = "";
+
 async function setupConfig() {
   const { data, isSuccess } = await getConfig();
   if (isSuccess && data) {
@@ -78,4 +83,15 @@ async function setupConfig() {
   }
 }
 
-export { setupConfig, config };
+function setServerLang(lang: string) {
+  serverLang = lang;
+}
+
+function getLang() {
+  if (isClient) {
+    return clientLang;
+  }
+  return serverLang;
+}
+
+export { setupConfig, config, clientLang, serverLang, setServerLang, getLang };

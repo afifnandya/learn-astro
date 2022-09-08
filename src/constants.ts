@@ -1,3 +1,4 @@
+export const DEFAULT_LANG = "th";
 export const API_MINOR_VERSION = 3;
 export const API_MAJOR_VERSION = "v5";
 export const API_DOMAIN = import.meta.env.PUBLIC_API_DOMAIN;
@@ -6,6 +7,7 @@ export const API_BASE_URL = "/api";
 export const API_CLIENT_TYPE = "web";
 export const DEFAULT_AVATAR =
   "https://d38lri8pyzrvor.cloudfront.net/mr_hungry_avatar.png";
+export const ASSET_BASE_URL = "https://d38lri8pyzrvor.cloudfront.net";
 export const SOURCE = "website";
 export const PROVIDER = "hungryhub";
 export const UTM_SOURCE = "utm_source";

@@ -1,9 +1,8 @@
-// import ky, { HTTPError } from "ky-universal";
-// import type { Options, SearchParamsOption } from "ky";
 import humps from "humps";
 import qs from "qs";
 import { API_BASE_URL, API_DOMAIN, API_MAJOR_VERSION } from "../constants";
 import { isContainQueryString, isContainHttp } from "src/helper/url";
+import { getLang } from "@/stores/config";
 
 type paramConfig = {
   url: string;
@@ -40,7 +39,7 @@ async function useHttp(paramConfig: paramConfig): Promise<State> {
   try {
     const DEFAULT_HEADERS = {
       "Content-Type": "application/json",
-      "X-HH-Language": paramConfig.lang || "th",
+      "X-HH-Language": paramConfig.lang || getLang(),
     };
     const REQUIRED_PARAMS = {
       client_type: paramConfig.clientType || "web",
