@@ -1,6 +1,5 @@
 import { defineConfig } from "astro/config";
 import tailwind from "@astrojs/tailwind";
-import astroI18next from "astro-i18next";
 import vue from "@astrojs/vue";
 import netlify from "@astrojs/netlify/functions";
 
@@ -8,5 +7,5 @@ import netlify from "@astrojs/netlify/functions";
 export default defineConfig({
   output: "server",
   adapter: netlify(),
-  integrations: [tailwind(), vue(), astroI18next()],
+  integrations: [tailwind(), vue()],
 });
