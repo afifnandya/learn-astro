@@ -5,19 +5,21 @@ import HomeAPIRequest from "@/partial/home/HomeAPIRequest.vue";
 import HomeBanner from "@/partial/home/HomeBanner.vue";
 import { setupConfig, getLang, setServerLang } from "@/stores/config";
 import "@/assets/css/index.css";
+import { selectedCityId, cityOption, fetchCity } from "@/stores/city";
 import {
-  init,
   addLang,
   translate,
   addTranslate,
+  init,
 } from "@/composable/useTranslate";
-import { selectedCityId } from "@/stores/city";
 await setupConfig();
 const params = Astro.params;
+console.log("params", params);
 setServerLang(params.lang as string);
 
 await init(getLang());
-addLang();
+await fetchCity();
+// addLang();
 // addTranslate({
 //   en: {
 //     bannerCTA: "More than {{total}} diners seated, book your table today!",
@@ -38,7 +40,5 @@ addLang();
       cityId={selectedCityId.value}
       client:idle
     />
-    <p>{translate("welcome")}</p>
-    <p>{translate("kucing")}</p>
   </main>
 </Layout>

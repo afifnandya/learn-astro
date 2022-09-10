@@ -19,7 +19,7 @@ import { isContainHttp } from "@/helper/url";
 // 1. local image can pass retina version
 // 2. external image can provide single src then use image service to generete webp and retina
 
-type SrcSet = {
+export type SrcSet = {
   source: string;
   format?: string;
   breakpoint?: {
@@ -43,7 +43,7 @@ const props = defineProps({
     required: false,
   },
   src: {
-    type: String as any,
+    type: String,
     required: true,
   },
   width: {
@@ -52,10 +52,15 @@ const props = defineProps({
   },
   height: {
     type: String,
+    default: "",
+  },
+  useMutator: {
+    type: Boolean,
+    default: true,
   },
 });
 
-const { sources, width, src, height } = props;
+const { sources, width, src, height, useMutator } = props;
 const widthInNumber = typeof width === "string" ? parseInt(width) : 0;
 const heightInNumber = typeof height === "string" ? parseInt(height) : 0;
 const imageSources: {
@@ -171,8 +176,10 @@ function init() {
   }
   // for use case #2
   if (!isLocal) {
-    imageSources.push(generateDefaultWebp());
-    return;
+    if (useMutator) {
+      imageSources.push(generateDefaultWebp());
+      return;
+    }
   }
 }
 

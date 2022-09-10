@@ -5,17 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-import { addTranslate, translate } from "@/composable/useTranslate";
-import { selectedCityId, selectedCityName } from "@/stores/city";
-import { onMounted, ref } from "vue";
-addTranslate({
-  en: {
-    lol: "LOL EN",
-  },
-  th: {
-    lol: "LOL TH",
-  },
-});
+import { translate } from "@/composable/useTranslate";
 </script>
 
 <script lang="ts">

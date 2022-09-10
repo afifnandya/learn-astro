@@ -1,4 +1,5 @@
 {
   "welcome": "Selamat datang",
-  "pleaseWait": "โปรดรอ"
+  "pleaseWait": "โปรดรอ",
+  "bannerCTA": "มียอดจองไปแล้วกว่า {{total}} ที่นั่ง จองโต๊ะของคุณวันนี้!"
 }

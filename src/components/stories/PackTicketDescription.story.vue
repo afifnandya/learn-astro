@@ -1,4 +1,3 @@
-import type { title } from 'process';
 <template>
   <Story :title="title">
     <PackTicketDescription :description="description" />

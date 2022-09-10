@@ -1,7 +1,7 @@
 import humps from "humps";
 import qs from "qs";
 import { API_BASE_URL, API_DOMAIN, API_MAJOR_VERSION } from "../constants";
-import { isContainQueryString, isContainHttp } from "src/helper/url";
+import { isContainQueryString, isContainHttp } from "@/helper/url";
 import { getLang } from "@/stores/config";
 
 type paramConfig = {
@@ -37,6 +37,7 @@ async function useHttp(paramConfig: paramConfig): Promise<State> {
   };
 
   try {
+    console.log("LANG USED IN HTPP", getLang());
     const DEFAULT_HEADERS = {
       "Content-Type": "application/json",
       "X-HH-Language": paramConfig.lang || getLang(),

@@ -24,7 +24,7 @@ import MyButtonVue from "@/components/MyButton.vue";
 import { addTranslate, translate } from "@/composable/useTranslate";
 import type { GetBannerAPIResponse } from "@/api/common/banner";
 import { rebuildAssetURL } from "@/helper/url";
-import { selectedCityHomeDescription } from "@/stores/city";
+import { selectedCityHomeDescription, selectedCity } from "@/stores/city";
 const props = defineProps({
   totalCover: {
     type: Number,
@@ -42,6 +42,7 @@ const props = defineProps({
 
 const { totalCover, cityId } = toRefs(props);
 const title = selectedCityHomeDescription.value;
+console.info("TIT", selectedCity.value);
 
 const banner = ref<GetBannerAPIResponse[]>([]);
 const image = computed(() => {
@@ -49,14 +50,6 @@ const image = computed(() => {
     return rebuildAssetURL(banner.value[0].desktopRetinaVersions[0].url);
   }
   return null;
-});
-addTranslate({
-  en: {
-    bannerCTA: "More than {{total}} diners seated, book your table today!",
-  },
-  th: {
-    bannerCTA: "มียอดจองไปแล้วกว่า {{total}} ที่นั่ง จองโต๊ะของคุณวันนี้!",
-  },
 });
 
 onMounted(async () => {

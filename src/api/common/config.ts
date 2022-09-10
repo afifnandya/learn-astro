@@ -1,5 +1,5 @@
-import useHttp from "src/composable/useHttp";
-import { API_MINOR_VERSION } from "src/constants";
+import useHttp from "@/composable/useHttp";
+import { API_MINOR_VERSION } from "@/constants";
 import { isEmpty } from "lodash-es";
 
 export interface GetConfigAPI {

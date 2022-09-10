@@ -1,41 +1,55 @@
-import i18next from "i18next";
+import i18next, { InitOptions } from "i18next";
 import en from "@/locales/en.json";
 import th from "@/locales/th.json";
+import commonEN from "@/locales/en/common.json";
+import commonTH from "@/locales/th/common.json";
 import Cookies from "js-cookie";
 import { isClient } from "@vueuse/shared";
 import { DEFAULT_LANG } from "@/constants";
 import { getLang } from "@/stores/config";
 
+let isClientInit = false;
+
 const resources = {
   // debug: true,
   en: {
+    common: commonEN,
     translation: {
       hei: "Hei in EN",
       ...en,
     },
   },
   th: {
+    common: commonTH,
     translation: {
       hei: "Hei in th",
       ...th,
     },
   },
 };
+
 async function init(lang?: string) {
+  if (isClient) {
+    if (isClientInit) {
+      return;
+    }
+  }
   const usedLang = lang || DEFAULT_LANG;
   console.log("used lang", usedLang);
   Cookies.set("astro-lang", usedLang);
-  const option = {
-    lng: usedLang, // if you're using a language detector, do not define the lng option
+  const option: InitOptions = {
+    lng: usedLang,
+    ns: ["common"],
+    fallbackNS: "common",
     // debug: true,
     resources,
   };
   await i18next.init(option);
 }
 
-if (isClient) {
-  await init(getLang());
-}
+// if (isClient) {
+//   await init(getLang());
+// }
 
 function changeLang(lang: string) {
   i18next.changeLanguage(lang);
@@ -44,8 +58,8 @@ function changeLang(lang: string) {
 const translate = i18next.t;
 const serverTranslate = isClient ? () => {} : i18next.t;
 
-function addTranslate(translate: Record<string, any>) {
-  console.log("adding translate");
+async function addTranslate(translate: Record<string, any>) {
+  console.log("adding translate", translate);
   for (const lang in translate) {
     i18next.addResources(lang, "translation", translate[lang]);
   }

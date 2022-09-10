@@ -1,4 +1,5 @@
 {
   "welcome": "Welcome in EN",
-  "pleaseWait": "please wait"
+  "pleaseWait": "please wait",
+  "bannerCTA": "More than {{total}} diners seated, book your table today!"
 }

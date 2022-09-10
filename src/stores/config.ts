@@ -84,6 +84,9 @@ async function setupConfig() {
 }
 
 function setServerLang(lang: string) {
+  if (lang === "null") {
+    return;
+  }
   serverLang = lang;
 }
 

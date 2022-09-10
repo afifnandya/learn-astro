@@ -5,4 +5,4 @@
   publish = "dist"
 
 [context.production]
-  environment = { PUBLIC_API_DOMAIN = "https://hungryhub.com" }
+  environment = { PUBLIC_API_DOMAIN = "https://hungryhub.com", NODE_VERSION = "16.16.0" }
