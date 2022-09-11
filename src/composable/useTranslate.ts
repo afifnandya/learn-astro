@@ -4,7 +4,7 @@ import th from "@/locales/th.json";
 import commonEN from "@/locales/en/common.json";
 import commonTH from "@/locales/th/common.json";
 import Cookies from "js-cookie";
-import { isClient } from "@vueuse/shared";
+import { isClient } from "@/helper/env";
 import { DEFAULT_LANG } from "@/constants";
 import { getLang } from "@/stores/config";
 

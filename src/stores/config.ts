@@ -2,7 +2,7 @@ import { ref } from "vue";
 import type { GetConfigAPI } from "@/api/common/config";
 import { getConfig } from "@/api/common/config";
 import { DEFAULT_LANG } from "@/constants";
-import { isClient } from "@vueuse/shared";
+import { isClient } from "@/helper/env";
 
 const config = ref<GetConfigAPI["data"]>({
   enableGiftCardFeature: false,

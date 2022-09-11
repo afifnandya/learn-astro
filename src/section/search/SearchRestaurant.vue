@@ -55,7 +55,7 @@ import { throttle } from "lodash-es";
 import { translate } from "@/composable/useTranslate";
 import { toRefs, ref } from "vue";
 import Spinner from "@/components/Spinner.vue";
-import { computed } from "@vue/reactivity";
+import { computed } from "vue";
 const DEFAULT_DELAY = 1500;
 const props = defineProps({
   isLoading: {
