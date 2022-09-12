@@ -10,7 +10,7 @@ import deno from "@astrojs/deno";
 export default defineConfig({
   site: "http://127.0.0.1:8787",
   output: "server",
-  adapter: node(),
+  adapter: netlify(),
   integrations: [tailwind(), vue()],
   vite: {
     define: {

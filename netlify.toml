@@ -1,8 +1,7 @@
 # example netlify.toml
 [build]
-  command = "astro build"
-  functions = "netlify/functions"
-  publish = "dist/"
+  command = "npm run build"
+  publish = "dist"
 
 [context.production]
-  environment = { PUBLIC_API_DOMAIN = "https://hungryhub.com", NODE_VERSION = "16.0.0" }
+  environment = { PUBLIC_API_DOMAIN = "https://hungryhub.com" }
