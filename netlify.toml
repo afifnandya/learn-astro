@@ -2,10 +2,7 @@
 [build]
   command = "astro build"
   functions = "netlify/functions"
-  publish = "dist"
+  publish = "dist/"
 
 [context.production]
-  environment = { PUBLIC_API_DOMAIN = "https://hungryhub.com" }
-
-[functions]
-  external_node_modules = ["astro"]
+  environment = { PUBLIC_API_DOMAIN = "https://hungryhub.com", NODE_VERSION = "16.0.0" }

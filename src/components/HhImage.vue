@@ -185,3 +185,9 @@ function init() {
 
 init();
 </script>
+
+<script lang="ts">
+export default {
+  name: "HhImage",
+};
+</script>

@@ -1,0 +1,6 @@
+name = "my-project"
+main = "dist/_worker.js"
+compatibility_date = "2022-08-11"
+
+[site]
+bucket = 'dist/static'

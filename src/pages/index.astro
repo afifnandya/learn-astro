@@ -1,37 +1,31 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import Navbar from "@section/navbar/Navbar.astro";
-import HomeAPIRequest from "@/partial/home/HomeAPIRequest.vue";
-import HomeBanner from "@/partial/home/HomeBanner.vue";
-import { setupConfig, getLang, setServerLang } from "@/stores/config";
-import "@/assets/css/index.css";
-import { selectedCityId, cityOption, fetchCity } from "@/stores/city";
-import {
-  addLang,
-  translate,
-  addTranslate,
-  init,
-} from "@/composable/useTranslate";
-await setupConfig();
-const params = Astro.params;
-console.log("params", params);
-setServerLang(params.lang as string);
+// import Navbar from "@section/navbar/Navbar.astro";
+// import HomeAPIRequest from "@/partial/home/HomeAPIRequest.vue";
+// import HomeBanner from "@/partial/home/HomeBanner.vue";
+// import { setupConfig, getLang, setServerLang } from "@/stores/config";
+// import "@/assets/css/index.css";
+// import { selectedCityId, cityOption, fetchCity } from "@/stores/city";
+// import {
+//   addLang,
+//   translate,
+//   addTranslate,
+//   init,
+// } from "@/composable/useTranslate";
+// await setupConfig();
+// const params = Astro.params;
+// console.log("params", params);
+// setServerLang(params.lang as string);
 
-await init(getLang());
-await fetchCity();
-// addLang();
-// addTranslate({
-//   en: {
-//     bannerCTA: "More than {{total}} diners seated, book your table today!",
-//   },
-//   th: {
-//     bannerCTA: "มียอดจองไปแล้วกว่า {{total}} ที่นั่ง จองโต๊ะของคุณวันนี้!",
-//   },
-// });
+// await init(getLang());
+// await fetchCity();
+
+import MyButton from "@/components/MyButton.vue";
 ---
 
 <Layout title="Welcome to Astro.">
-  <HomeAPIRequest client:load />
+  <MyButton />
+  <!-- <HomeAPIRequest client:load />
   <main class="">
     <Navbar />
     <HomeBanner
@@ -40,5 +34,5 @@ await fetchCity();
       cityId={selectedCityId.value}
       client:idle
     />
-  </main>
+  </main> -->
 </Layout>
