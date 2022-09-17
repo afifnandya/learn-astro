@@ -237,85 +237,39 @@ import iconPlate from "@/assets/img/icon-plate-red.png";
 import iconXperience from "@/assets/img/icon-xperience.png";
 import iconDelivery from "@/assets/img/icon-shopping-bag-red.png";
 
-type Image = {
-  src: string;
-  sources?: SrcSet[];
-  useMutator?: boolean;
-};
-
-const props = defineProps({
-  link: {
-    type: String,
-    required: true,
-  },
+export interface Props {
+  id: string | number;
+  link: string;
   image: {
-    type: Object as PropType<Image>,
-    required: true,
-  },
-  isLoading: {
-    type: Boolean,
-    default: false,
-  },
-  customText: {
-    type: String,
-    default: "",
-  },
-  isAds: {
-    type: Boolean,
-    default: false,
-  },
-  name: {
-    type: String,
-    required: true,
-  },
-  price: {
-    type: Number,
-    required: true,
-  },
-  pricingType: {
-    type: String,
-    required: true,
-  },
-  isDineIn: {
-    type: Boolean,
-    default: false,
-  },
-  isDelivery: {
-    type: Boolean,
-    default: false,
-  },
-  isXperience: {
-    type: Boolean,
-    default: false,
-  },
-  cuisine: {
-    type: String,
-    required: true,
-  },
-  location: {
-    type: String,
-    required: true,
-  },
-  totalLocation: {
-    type: Number,
-    required: true,
-  },
-  reviewsCount: {
-    type: Number,
-    required: true,
-  },
-  reviewsScore: {
-    type: [String, Number],
-    required: true,
-  },
-  showFavButton: {
-    type: Boolean,
-    default: false,
-  },
-  favouriteIcon: {
-    type: String,
-    default: "",
-  },
+    src: string;
+    sources?: SrcSet[];
+    useMutator?: boolean;
+  };
+  customText?: string;
+  isAds?: boolean;
+  name: string;
+  price: number;
+  pricingType: string;
+  isDineIn?: boolean;
+  isDelivery?: boolean;
+  isXperience?: boolean;
+  cuisine: string;
+  location: string;
+  totalLocation: number;
+  reviewsCount: number;
+  reviewsScore: string | number;
+  showFavButton?: boolean;
+  favouriteIcon?: string;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  customText: "",
+  isAds: false,
+  isDelivery: false,
+  isDineIn: false,
+  isXperience: false,
+  showFavButton: false,
+  favouriteIcon: "",
 });
 
 const {

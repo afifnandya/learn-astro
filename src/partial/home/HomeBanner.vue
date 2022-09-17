@@ -42,7 +42,6 @@ const props = defineProps({
 
 const { totalCover, cityId } = toRefs(props);
 const title = selectedCityHomeDescription.value;
-console.info("TIT", selectedCity.value);
 
 const banner = ref<GetBannerAPIResponse[]>([]);
 const image = computed(() => {
