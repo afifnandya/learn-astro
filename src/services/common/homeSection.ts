@@ -45,7 +45,10 @@ async function getHomeSection({
   return {
     isSuccess,
     message,
-    data: remapData,
+    data: {
+      ...data,
+      data: remapData,
+    },
   };
 }
 

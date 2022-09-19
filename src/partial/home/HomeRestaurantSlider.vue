@@ -1,4 +1,7 @@
 <template>
+  <div class="section-title" :class="isLoading ? 'is-loading' : null">
+    {{ title }}
+  </div>
   <RestaurantCardSlider
     class="max-width"
     :restaurants="restaurants"
@@ -14,23 +17,38 @@ import {
   getHomeSection,
   isRestaurantTags,
 } from "@/services/common/homeSection";
-import type { FeaturedRestaurantModel } from "@/models/restaurant";
 import { errorToast } from "@/lib/alert";
-import { onMounted, ref, Ref } from "vue";
+import { onMounted, Prop, ref, Ref, toRefs } from "vue";
+
+const props = defineProps({
+  apiOrder: {
+    type: Number,
+    required: true,
+  },
+  homeSectionOrder: {
+    type: Number,
+    required: true,
+  },
+});
+const { apiOrder } = toRefs(props);
 const dummyCount = 5;
 const isLoading = ref(true);
-let restaurants: Ref<RestaurantCardSliderProps["restaurants"]> = ref([]);
+const title = ref("section title");
+const restaurants: Ref<RestaurantCardSliderProps["restaurants"]> = ref([]);
 
 async function fetchData() {
   isLoading.value = true;
-  const { data, isSuccess, message } = await getHomeSection({ order: 1 });
+  const { data, isSuccess, message } = await getHomeSection({
+    order: apiOrder.value,
+  });
   if (!isSuccess || !data) {
     errorToast(message);
     return;
   }
   if (data) {
     restaurants.value = [];
-    data.forEach((item) => {
+    title.value = data.title;
+    data.data.forEach((item) => {
       if (!isRestaurantTags(item)) {
         restaurants.value.push({
           isLoading: false,
@@ -51,6 +69,9 @@ async function fetchData() {
           totalLocation: item.totalLocations || 0,
           reviewsCount: item.totalReviews,
           reviewsScore: item.avgReviews,
+          isDelivery: item.anyDeliveryPackage,
+          isDineIn: item.anyDeliveryPackage,
+          isXperience: item.anyXperiencePackage,
         });
       }
     });

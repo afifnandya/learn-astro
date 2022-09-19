@@ -1,0 +1,7 @@
+.section-title{
+  @apply my-2 text-sm lg:font-black lg:text-center lg:text-xl lg:my-4;
+}
+
+.section-title.is-loading{
+  @apply bg-gray-300 text-gray-300 w-9/12 lg:w-6/12 mx-auto;
+}

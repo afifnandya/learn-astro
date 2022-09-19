@@ -40,6 +40,7 @@ async function init(lang?: string) {
   const option: InitOptions = {
     lng: usedLang,
     ns: ["common"],
+    defaultNS: "common",
     fallbackNS: "common",
     // debug: true,
     resources,

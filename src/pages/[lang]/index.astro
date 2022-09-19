@@ -17,6 +17,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "@/assets/css/library-override.scss";
+import "@/partial/home/home.scss";
 await setupConfig();
 const params = Astro.params;
 setServerLang(params.lang as string);
@@ -44,6 +45,8 @@ await fetchCity();
       cityId={selectedCityId.value}
       client:idle
     />
-    <HomeRestaurantSlider class="container mx-auto" client:idle />
+    <div class="container mx-auto">
+      <HomeRestaurantSlider apiOrder={3} homeSectionOrder={1} client:idle />
+    </div>
   </main>
 </Layout>

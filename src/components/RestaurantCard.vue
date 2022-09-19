@@ -88,7 +88,7 @@
           <div
             class="text-right whitespace-nowrap pricetag-rule text-2xs text-red-dark"
           >
-            {{ pricingType }}
+            {{ pricingTypeLabel(pricingType) }}
           </div>
         </div>
       </div>
@@ -132,14 +132,14 @@
                 </div>
                 <!-- location -->
                 <span
-                  class="truncate text-2xs md:text-base lg:text-xs location-label"
+                  class="capitalize truncate text-2xs md:text-base lg:text-xs location-label"
                   >{{ locationLabel }}</span
                 >
               </template>
             </div>
           </div>
           <!-- restaurant dine in / delivery -->
-          <div class="flex items-center text-2xs lg:text-xs">
+          <div class="flex items-center text-2xs lg:text-xs min-h-[15px]">
             <div v-if="isDineIn" class="flex items-center mr-1">
               <div class="mr-1">
                 <HhImage
@@ -207,10 +207,14 @@
             </div>
             <div
               v-if="isNotNew"
-              class="hidden text-xs text-center text-gray-700 whitespace-nowrap md:text-2xs restaurant-rating-count lg:block"
+              class="hidden text-xs text-center text-gray-700 capitalize whitespace-nowrap md:text-2xs restaurant-rating-count lg:block"
               :class="isHaveAllService ? 'w-11/12 truncate' : null"
             >
-              {{ reviewsCount }}
+              {{
+                `${reviewsCount} ${translate("review", {
+                  count: reviewsCount,
+                })}`
+              }}
             </div>
           </div>
         </div>
@@ -229,6 +233,7 @@ import {
   onMounted,
 } from "vue";
 import { moneyFormat } from "@/helper/string";
+import { pricingTypeLabel } from "@/helper/pack";
 import type { SrcSet } from "@/components/HhImage.vue";
 import { translate } from "@/composable/useTranslate";
 import iconPrice from "@/assets/img/icon-price-red.png";
@@ -299,8 +304,7 @@ const locationLabel = computed(() => {
     return location.value;
   }
   if (totalLocation.value > 0) {
-    return `${totalLocation.value} ${translate("lol", {
-      ns: "common",
+    return `${totalLocation.value} ${translate("branch", {
       count: totalLocation.value,
     })}`;
   }
@@ -313,10 +317,6 @@ const isNotNew = computed(() => {
 
 const isHaveAllService = computed(() => {
   return isDelivery.value && isDineIn.value && isXperience.value;
-});
-
-onMounted(() => {
-  console.log("translate", translate("lol"));
 });
 </script>
 

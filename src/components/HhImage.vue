@@ -6,7 +6,13 @@
       :srcset="imageSource.source"
       :media="imageSource.mediaQuery"
     />
-    <img v-bind="$attrs" :src="parsedSrc" :alt="alt" :width="widthInNumber" />
+    <img
+      v-bind="$attrs"
+      :src="parsedSrc"
+      :alt="alt"
+      :width="widthInNumber"
+      loading="lazy"
+    />
   </picture>
 </template>
 
@@ -135,7 +141,7 @@ function generateDefaultWebp() {
     mutatorOption: {
       width: widthInNumber * 2,
       format: "webp",
-      height: heightInNumber,
+      height: heightInNumber * 2,
     },
     src: src,
   });

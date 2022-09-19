@@ -2,5 +2,9 @@
   "new": "ใหม่",
   "book": "จองโต๊ะ",
   "branch_one": "สาขา",
-  "branch_other": "สาขา"
+  "branch_other": "สาขา",
+  "review_one": "รีวิว",
+  "review_other": "รีวิว",
+  "netPerson": "ราคาสุทธิ/ท่าน",
+  "netSet": "ราคาสุทธิ/เซ็ต"
 }

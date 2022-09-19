@@ -57,11 +57,15 @@ import { createLoopId } from "@/helper/restaurant";
 export interface Props {
   restaurants: RestaurantCardProps[];
   isLoading?: boolean;
+  showArrow?: boolean;
+  showPagination?: boolean;
 }
 Swiper.use([Navigation, Pagination]);
 
 const props = withDefaults(defineProps<Props>(), {
   isLoading: true,
+  showArrow: true,
+  showPagination: true,
 });
 
 const { isLoading } = toRefs(props);
@@ -77,27 +81,47 @@ function initSlider() {
   const next = nextElement.value as unknown as HTMLElement;
   const prev = prevElement.value as unknown as HTMLElement;
   let sliderConfig = {
-    centerInsufficientSlides: true,
-    slidesPerView: 5,
+    slidesPerView: 2,
     spaceBetween: 10,
+    breakpoints: {
+      // when window width is >= 320px
+      640: {
+        centerInsufficientSlides: true,
+        slidesPerView: 3,
+        navigation: {
+          nextEl: next,
+          prevEl: prev,
+        },
+      },
+      768: {
+        centerInsufficientSlides: true,
+        slidesPerView: 4,
+        navigation: {
+          nextEl: next,
+          prevEl: prev,
+        },
+      },
+      1280: {
+        centerInsufficientSlides: true,
+        slidesPerView: 5,
+        navigation: {
+          nextEl: next,
+          prevEl: prev,
+        },
+      },
+    },
     pagination: {
       el: pagination,
       clickable: true,
       dynamicBullets: true,
     },
-    navigation: {
-      nextEl: next,
-      prevEl: prev,
-    },
   };
 
   sliderInstance = new Swiper(el, sliderConfig);
-  console.log("ins", sliderInstance);
 }
 
 onMounted(() => {
   watch(isLoading, (newVal) => {
-    console.log("is", newVal);
     if (newVal === false) {
       initSlider();
     }
@@ -140,11 +164,22 @@ export default {
   .swiper-button-prev::after {
     content: none;
   }
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    @apply hidden;
+    @screen lg {
+      @apply block;
+    }
+  }
 }
 
 .restaurant-card-slider.is-loading {
   .restaurant-card-slide-wrapper {
-    @apply flex flex-wrap items-center justify-center;
+    @apply flex items-center justify-center;
+    @screen lg {
+      @apply flex-wrap;
+    }
   }
   .restaurant-card-slide {
     @apply pr-2;

@@ -6,7 +6,7 @@
 import { setupConfig, getLang, setServerLang } from "@/stores/config";
 import { fetchCity } from "@/stores/city";
 import { init } from "@/composable/useTranslate";
-// await init(getLang());
+await init(getLang());
 // fetchCity();
 // setupConfig();
 </script>
