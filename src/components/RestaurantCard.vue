@@ -3,7 +3,7 @@
     <!-- restaurant image -->
     <div class="relative">
       <a
-        class="block w-full aspect-w-16 aspect-h-9"
+        class="block w-full aspect-video"
         :href="link"
         @click.prevent="$emit('on-click')"
       >
@@ -12,8 +12,9 @@
           :src="image.src"
           :useMutator="image.useMutator"
           alt="restaurant image"
-          width="200"
-          class="mx-auto bg-gray-300 rounded-tl-lg rounded-tr-lg restaurant-image"
+          :width="image.width || defaultImgSize.width"
+          :height="image.height || defaultImgSize.height"
+          class="w-full bg-gray-300 rounded-tl-lg rounded-tr-lg restaurant-image"
         />
       </a>
 
@@ -225,6 +226,7 @@ import {
   PropType,
   computed,
   toRefs,
+  onMounted,
 } from "vue";
 import { moneyFormat } from "@/helper/string";
 import type { SrcSet } from "@/components/HhImage.vue";
@@ -242,6 +244,8 @@ export interface Props {
   link: string;
   image: {
     src: string;
+    width?: string;
+    height?: string;
     sources?: SrcSet[];
     useMutator?: boolean;
   };
@@ -261,6 +265,11 @@ export interface Props {
   showFavButton?: boolean;
   favouriteIcon?: string;
 }
+
+const defaultImgSize = {
+  width: "250",
+  height: "141",
+};
 
 const props = withDefaults(defineProps<Props>(), {
   customText: "",
@@ -290,7 +299,8 @@ const locationLabel = computed(() => {
     return location.value;
   }
   if (totalLocation.value > 0) {
-    return `${totalLocation.value} ${translate("branch", {
+    return `${totalLocation.value} ${translate("lol", {
+      ns: "common",
       count: totalLocation.value,
     })}`;
   }
@@ -303,6 +313,10 @@ const isNotNew = computed(() => {
 
 const isHaveAllService = computed(() => {
   return isDelivery.value && isDineIn.value && isXperience.value;
+});
+
+onMounted(() => {
+  console.log("translate", translate("lol"));
 });
 </script>
 
@@ -323,10 +337,6 @@ export default {
       height: 45px;
     }
     min-height: 27px;
-  }
-  .restaurant-image {
-    width: 100%;
-    object-fit: cover;
   }
 
   .restaurant-rating {

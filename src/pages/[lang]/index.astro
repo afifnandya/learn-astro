@@ -13,9 +13,12 @@ import {
   init,
 } from "@/composable/useTranslate";
 import HomeRestaurantSlider from "@/partial/home/HomeRestaurantSlider.vue";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "@/assets/css/library-override.scss";
 await setupConfig();
 const params = Astro.params;
-console.log("params", params);
 setServerLang(params.lang as string);
 
 await init(getLang());
@@ -41,6 +44,6 @@ await fetchCity();
       cityId={selectedCityId.value}
       client:idle
     />
-    <HomeRestaurantSlider class="container mx-auto" />
+    <HomeRestaurantSlider class="container mx-auto" client:idle />
   </main>
 </Layout>

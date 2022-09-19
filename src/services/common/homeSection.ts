@@ -5,11 +5,12 @@ import type {
 } from "@/api/common/homeSection";
 import { selectedCityId } from "@/stores/city";
 import { featuredResturant } from "@/models/restaurant";
+import type { FeaturedRestaurantModel } from "@/models/restaurant";
 
-function isFeaturedRestaurants(
-  sectionData: FeaturedRestaurants | RestaurantTags
-): sectionData is FeaturedRestaurants {
-  return (sectionData as FeaturedRestaurants).type === "featured_restaurants";
+export function isRestaurantTags(
+  sectionData: FeaturedRestaurants | RestaurantTags | FeaturedRestaurantModel
+): sectionData is RestaurantTags {
+  return (sectionData as RestaurantTags).type === "restaurant_tags";
 }
 
 async function getHomeSection({
@@ -36,7 +37,7 @@ async function getHomeSection({
   }
 
   const remapData = data.data.map((sectionData) => {
-    if (isFeaturedRestaurants(sectionData)) {
+    if (!isRestaurantTags(sectionData)) {
       return featuredResturant(sectionData);
     }
     return sectionData;

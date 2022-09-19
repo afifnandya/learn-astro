@@ -8,10 +8,11 @@ import {
   PACKAGE_CODE_XP,
 } from "@/constants";
 import { isNewRestaurant } from "@/helper/restaurant";
+import { rebuildAssetURL } from "@/helper/url";
 
 type Attr = FeaturedRestaurant["attributes"];
 
-interface EnhanceFeaturedRestaurant extends Attr {
+interface FeaturedRestaurantModel extends Attr {
   id: string;
   anyDeliveryPackage: boolean;
   anyDineInPackage: boolean;
@@ -47,7 +48,7 @@ function featuredResturant(param: FeaturedRestaurant) {
     priceV2,
     pricingType,
   } = param.attributes;
-  const restaurant: EnhanceFeaturedRestaurant = {
+  const restaurant: FeaturedRestaurantModel = {
     id: param.id,
     isFavourited: false,
     startDate: startDate,
@@ -70,10 +71,10 @@ function featuredResturant(param: FeaturedRestaurant) {
     restaurantEncryptedId: restaurantEncryptedId,
     link: link,
     cover: {
-      thumb: cover.thumb,
-      slideThumb: cover.slideThumb,
-      square: cover.square,
-      original: cover.original,
+      thumb: rebuildAssetURL(cover.thumb),
+      slideThumb: rebuildAssetURL(cover.slideThumb),
+      square: rebuildAssetURL(cover.square),
+      original: rebuildAssetURL(cover.original),
     },
     lastBookingWasMade: lastBookingWasMade,
     packageTypes: packageTypes,
@@ -111,3 +112,4 @@ function featuredResturant(param: FeaturedRestaurant) {
 }
 
 export { featuredResturant };
+export type { FeaturedRestaurantModel };

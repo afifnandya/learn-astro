@@ -6,7 +6,7 @@
       :srcset="imageSource.source"
       :media="imageSource.mediaQuery"
     />
-    <img :src="parsedSrc" :alt="alt" :width="widthInNumber" />
+    <img v-bind="$attrs" :src="parsedSrc" :alt="alt" :width="widthInNumber" />
   </picture>
 </template>
 
