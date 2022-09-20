@@ -1,12 +1,14 @@
 <template>
-  <div class="section-title" :class="isLoading ? 'is-loading' : null">
-    {{ title }}
+  <div class="mx-4">
+    <div class="section-title" :class="isLoading ? 'is-loading' : null">
+      {{ title }}
+    </div>
+    <RestaurantCardSlider
+      class="max-width"
+      :restaurants="restaurants"
+      :is-loading="isLoading"
+    />
   </div>
-  <RestaurantCardSlider
-    class="max-width"
-    :restaurants="restaurants"
-    :is-loading="isLoading"
-  />
 </template>
 
 <script lang="ts" setup>

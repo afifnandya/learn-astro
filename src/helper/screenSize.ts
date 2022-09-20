@@ -1,4 +1,13 @@
+import { isServer } from "./env";
+
 function getCurrentScreenSize() {
+  if (isServer) {
+    return {
+      isDesktop: false,
+      isTablet: false,
+      isMobile: false,
+    };
+  }
   if (window.matchMedia("(max-width: 767px)").matches) {
     return {
       isDesktop: false,
