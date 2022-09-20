@@ -4,6 +4,7 @@ import { getConfig } from "@/api/common/config";
 import { DEFAULT_LANG } from "@/constants";
 import { isClient } from "@/helper/env";
 
+const isLoading = ref(false);
 const config = ref<GetConfigAPI["data"]>({
   enableGiftCardFeature: false,
   weTravelTogetherIconUrl: "",
@@ -77,7 +78,9 @@ const clientLang = path.length ? path[1] : DEFAULT_LANG;
 let serverLang = "";
 
 async function setupConfig() {
+  isLoading.value = true;
   const { data, isSuccess } = await getConfig();
+  isLoading.value = false;
   if (isSuccess && data) {
     config.value = data;
   }
@@ -97,4 +100,12 @@ function getLang() {
   return serverLang;
 }
 
-export { setupConfig, config, clientLang, serverLang, setServerLang, getLang };
+export {
+  setupConfig,
+  config,
+  clientLang,
+  serverLang,
+  setServerLang,
+  getLang,
+  isLoading,
+};

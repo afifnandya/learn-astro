@@ -6,9 +6,14 @@
 import { setupConfig, getLang, setServerLang } from "@/stores/config";
 import { fetchCity } from "@/stores/city";
 import { init } from "@/composable/useTranslate";
-await init(getLang());
-// fetchCity();
-// setupConfig();
+
+async function initFetch() {
+  await init(getLang());
+  fetchCity();
+  setupConfig();
+}
+
+initFetch();
 </script>
 <script lang="ts">
 export default {

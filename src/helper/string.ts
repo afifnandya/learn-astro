@@ -34,11 +34,17 @@ const removePunctuation = (text: string): string => {
   return "";
 };
 
+const formatThousand = (param: number | string): string => {
+  const value = convertToNumber(param);
+  const intl = new Intl.NumberFormat("en-US", {
+    maximumFractionDigits: 0,
+  });
+  return intl.format(value);
+};
+
 const moneyFormat = (param: number | string): string => {
   const value = convertToNumber(param);
   const intl = new Intl.NumberFormat("th-TH", {
-    // style: "currency",
-    // currency: "THB",
     maximumFractionDigits: 0,
   });
   return `${intl.format(value)}฿`;
@@ -69,4 +75,5 @@ export {
   isValidJsonString,
   toSlug,
   moneyFormat,
+  formatThousand,
 };

@@ -3,6 +3,8 @@ import en from "@/locales/en.json";
 import th from "@/locales/th.json";
 import commonEN from "@/locales/en/common.json";
 import commonTH from "@/locales/th/common.json";
+import homeEN from "@/locales/en/home.json";
+import homeTH from "@/locales/th/home.json";
 import Cookies from "js-cookie";
 import { isClient } from "@/helper/env";
 import { DEFAULT_LANG } from "@/constants";
@@ -13,6 +15,7 @@ let isClientInit = false;
 const resources = {
   // debug: true,
   en: {
+    home: homeEN,
     common: commonEN,
     translation: {
       hei: "Hei in EN",
@@ -20,6 +23,7 @@ const resources = {
     },
   },
   th: {
+    home: homeTH,
     common: commonTH,
     translation: {
       hei: "Hei in th",

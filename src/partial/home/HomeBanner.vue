@@ -10,7 +10,14 @@
         {{ title }}
       </h1>
       <h3 class="my-2 sub-title">
-        <div>{{ translate("bannerCTA", { total: 1000 }) }}</div>
+        <div>
+          {{
+            translate("bannerCTA", {
+              ns: "home",
+              total: showedTotalCover,
+            })
+          }}
+        </div>
       </h3>
     </div>
   </div>
@@ -19,15 +26,25 @@
 
 <script lang="ts" setup>
 import { getBanners } from "@/api/common/banner";
-import { toRefs, onMounted, ref, defineAsyncComponent, computed } from "vue";
+import {
+  toRefs,
+  onMounted,
+  ref,
+  defineAsyncComponent,
+  computed,
+  watch,
+} from "vue";
 import MyButtonVue from "@/components/MyButton.vue";
 import { addTranslate, translate } from "@/composable/useTranslate";
 import type { GetBannerAPIResponse } from "@/api/common/banner";
 import { rebuildAssetURL } from "@/helper/url";
 import { selectedCityHomeDescription, selectedCity } from "@/stores/city";
+import { config, isLoading } from "@/stores/config";
+import { formatThousand } from "@/helper/string";
+
 const props = defineProps({
   totalCover: {
-    type: Number,
+    type: String,
     required: true,
   },
   image: {
@@ -51,7 +68,14 @@ const image = computed(() => {
   return null;
 });
 
+const showedTotalCover = ref(totalCover.value);
+
 onMounted(async () => {
+  watch(isLoading, (newVal) => {
+    if (newVal === false) {
+      showedTotalCover.value = formatThousand(config.value.totalCovers);
+    }
+  });
   const { isSuccess, message, data } = await getBanners(cityId.value);
   if (data?.length && isSuccess) {
     banner.value = data.filter((promotion) => {

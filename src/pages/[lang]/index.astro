@@ -3,36 +3,22 @@ import Layout from "../../layouts/Layout.astro";
 import Navbar from "@section/navbar/Navbar.astro";
 import HomeAPIRequest from "@/partial/home/HomeAPIRequest.vue";
 import HomeBanner from "@/partial/home/HomeBanner.vue";
-import { setupConfig, getLang, setServerLang } from "@/stores/config";
+import { setupConfig, getLang, setServerLang, config } from "@/stores/config";
 import "@/assets/css/index.css";
-import { selectedCityId, cityOption, fetchCity } from "@/stores/city";
-import {
-  addLang,
-  translate,
-  addTranslate,
-  init,
-} from "@/composable/useTranslate";
+import { selectedCityId } from "@/stores/city";
+import { init } from "@/composable/useTranslate";
 import HomeRestaurantSlider from "@/partial/home/HomeRestaurantSlider.vue";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "@/assets/css/library-override.scss";
 import "@/partial/home/home.scss";
+import { formatThousand } from "@/helper/string";
 await setupConfig();
 const params = Astro.params;
 setServerLang(params.lang as string);
 
 await init(getLang());
-await fetchCity();
-// addLang();
-// addTranslate({
-//   en: {
-//     bannerCTA: "More than {{total}} diners seated, book your table today!",
-//   },
-//   th: {
-//     bannerCTA: "มียอดจองไปแล้วกว่า {{total}} ที่นั่ง จองโต๊ะของคุณวันนี้!",
-//   },
-// });
 ---
 
 <Layout title="Welcome to Astro.">
@@ -41,7 +27,7 @@ await fetchCity();
     <Navbar />
     <HomeBanner
       image=""
-      totalCover={100}
+      totalCover={formatThousand(config.value.totalCovers)}
       cityId={selectedCityId.value}
       client:idle
     />
