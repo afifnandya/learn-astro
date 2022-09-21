@@ -14,9 +14,11 @@ export function isNewRestaurant(reviewsCount: number) {
 }
 
 export function createLoopId({
+  randomString,
   name,
   id,
 }: {
+  randomString?: string;
   name: string;
   id: number | string;
 }) {

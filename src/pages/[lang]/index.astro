@@ -14,7 +14,7 @@ import "swiper/css/pagination";
 import "@/assets/css/library-override.scss";
 import "@/partial/home/home.scss";
 import { formatThousand } from "@/helper/string";
-await setupConfig();
+// await setupConfig();
 const params = Astro.params;
 setServerLang(params.lang as string);
 
@@ -31,8 +31,37 @@ await init(getLang());
       cityId={selectedCityId.value}
       client:idle
     />
+    <div class="hidden" style="height: 900px">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut quae minus,
+      mollitia doloribus illum ad harum corrupti laborum quis recusandae atque
+      quo suscipit iure, aspernatur assumenda corporis labore optio eveniet?
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut quae minus,
+      mollitia doloribus illum ad harum corrupti laborum quis recusandae atque
+      quo suscipit iure, aspernatur assumenda corporis labore optio eveniet?
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut quae minus,
+      mollitia doloribus illum ad harum corrupti laborum quis recusandae atque
+      quo suscipit iure, aspernatur assumenda corporis labore optio eveniet?
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut quae minus,
+      mollitia doloribus illum ad harum corrupti laborum quis recusandae atque
+      quo suscipit iure, aspernatur assumenda corporis labore optio eveniet?
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut quae minus,
+      mollitia doloribus illum ad harum corrupti laborum quis recusandae atque
+      quo suscipit iure, aspernatur assumenda corporis labore optio eveniet?
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut quae minus,
+      mollitia doloribus illum ad harum corrupti laborum quis recusandae atque
+      quo suscipit iure, aspernatur assumenda corporis labore optio eveniet?
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut quae minus,
+      mollitia doloribus illum ad harum corrupti laborum quis recusandae atque
+      quo suscipit iure, aspernatur assumenda corporis labore optio eveniet?
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut quae minus,
+      mollitia doloribus illum ad harum corrupti laborum quis recusandae atque
+      quo suscipit iure, aspernatur assumenda corporis labore optio eveniet?
+    </div>
     <div class="container mx-auto">
       <HomeRestaurantSlider apiOrder={3} homeSectionOrder={1} client:idle />
+      <HomeRestaurantSlider apiOrder={1} homeSectionOrder={1} client:idle />
+      <HomeRestaurantSlider apiOrder={8} homeSectionOrder={1} client:idle />
+      <HomeRestaurantSlider apiOrder={6} homeSectionOrder={1} client:idle />
     </div>
   </main>
 </Layout>

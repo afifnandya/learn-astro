@@ -29,7 +29,6 @@ const emits = defineEmits(["update:selectedCityId"]);
 
 function onChange(event: Event) {
   const target = event.target as HTMLSelectElement;
-  console.log("ganti", target.value);
   emits("update:selectedCityId", target.value);
 }
 </script>

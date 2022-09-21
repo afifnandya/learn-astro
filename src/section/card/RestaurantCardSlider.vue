@@ -7,7 +7,13 @@
       <div class="mb-8 restaurant-card-slide-wrapper swiper-wrapper">
         <div
           v-for="restaurant in restaurantsToShow"
-          :key="createLoopId({ name: restaurant.name, id: restaurant.id })"
+          :key="
+            createLoopId({
+              randomString: id,
+              name: restaurant.name,
+              id: restaurant.id,
+            })
+          "
           :style="virtualStyle"
           class="restaurant-card-slide swiper-slide"
         >
@@ -70,6 +76,7 @@ const props = withDefaults(defineProps<Props>(), {
   showArrow: true,
   showPagination: true,
 });
+const id = `${new Date().getTime()}`;
 const { restaurants } = toRefs(props);
 const { isLoading } = toRefs(props);
 let sliderInstance = ref<Swiper>();
