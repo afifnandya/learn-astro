@@ -11,6 +11,7 @@
       <RestaurantCardSlider
         class="max-width"
         :restaurants="showedRestaurants"
+        :slidePerView="sliderPerView"
         :is-loading="isLoading"
       />
     </div>
@@ -28,6 +29,7 @@ import {
 } from "@/services/common/homeSection";
 import { selectedCityId } from "@/stores/city";
 import { errorToast } from "@/lib/alert";
+import { isDesktop, isMobile, isTablet } from "@/helper/screenSize";
 import {
   computed,
   onBeforeMount,
@@ -49,6 +51,8 @@ const props = defineProps({
     required: true,
   },
 });
+const sliderPerView = isDesktop ? 5 : isTablet ? 4 : 2;
+console.log("sliderPerView", sliderPerView);
 const { apiOrder } = toRefs(props);
 const observerTarget = ref(null);
 const dummyCount = 5;

@@ -14,7 +14,6 @@
               id: restaurant.id,
             })
           "
-          :style="virtualStyle"
           class="restaurant-card-slide swiper-slide"
         >
           <RestaurantCard v-bind="restaurant" :is-loading="isLoading" />
@@ -22,7 +21,7 @@
       </div>
       <div ref="paginationElement" class="swiper-pagination"></div>
     </div>
-    <div ref="nextElement" class="swiper-button-next">
+    <div ref="nextElement" class="swiper-button-next" v-show="isShowNextArrow">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="22"
@@ -37,7 +36,7 @@
         />
       </svg>
     </div>
-    <div ref="prevElement" class="swiper-button-prev">
+    <div ref="prevElement" class="swiper-button-prev" v-show="isShowPrevArrow">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="20"
@@ -62,9 +61,9 @@ import RestaurantCard from "./RestaurantCard.vue";
 import { Swiper, Navigation, Pagination, SwiperOptions, Virtual } from "swiper";
 import { onMounted, ref, toRefs, watch, reactive, computed } from "vue";
 import { createLoopId } from "@/helper/restaurant";
-import { isDesktop, isMobile, isTablet } from "@/helper/screenSize";
 export interface Props {
   restaurants: RestaurantCardProps[];
+  slidePerView: number;
   isLoading?: boolean;
   showArrow?: boolean;
   showPagination?: boolean;
@@ -77,10 +76,17 @@ const props = withDefaults(defineProps<Props>(), {
   showPagination: true,
 });
 const id = `${new Date().getTime()}`;
-const { restaurants } = toRefs(props);
-const { isLoading } = toRefs(props);
+const { restaurants, isLoading, slidePerView } = toRefs(props);
 let sliderInstance = ref<Swiper>();
 const sliderElement = ref(null);
+const isReachEnd = ref(false);
+const isReachStart = ref(true);
+const isShowNextArrow = computed(() => {
+  return !isReachEnd.value;
+});
+const isShowPrevArrow = computed(() => {
+  return !isReachStart.value;
+});
 const paginationElement = ref(null);
 const nextElement = ref(null);
 const prevElement = ref(null);
@@ -91,32 +97,24 @@ const virtualData = reactive<VirtualData>({
   to: 0,
 });
 const restaurantsToShow = computed(() => {
-  if (isLoading.value || !sliderInstance.value) {
-    return restaurants.value;
-  }
-  return virtualData.slides;
+  return restaurants.value;
+  // if (isLoading.value || !sliderInstance.value) {
+  //   return restaurants.value;
+  // }
+  // return virtualData.slides;
 });
-const virtualStyle = computed(() => {
-  return `left: ${virtualData.offset}px;`;
-});
+// const virtualStyle = computed(() => {
+//   return `left: ${virtualData.offset}px;`;
+// });
 
 function initSlider() {
   const el = sliderElement.value as unknown as HTMLElement;
   const pagination = paginationElement.value as unknown as HTMLElement;
   const next = nextElement.value as unknown as HTMLElement;
   const prev = prevElement.value as unknown as HTMLElement;
-  const setInitialSliePerView = () => {
-    if (isDesktop) {
-      return 5;
-    }
-    if (isTablet) {
-      return 4;
-    }
-    return 2;
-  };
   let sliderConfig: SwiperOptions = {
     loop: false,
-    slidesPerView: setInitialSliePerView(),
+    slidesPerView: slidePerView.value,
     spaceBetween: 10,
     breakpoints: {
       // when window width is >= 320px
@@ -146,6 +144,7 @@ function initSlider() {
       },
     },
     navigation: {
+      enabled: true,
       nextEl: next,
       prevEl: prev,
     },
@@ -161,6 +160,12 @@ function initSlider() {
         virtualData.to = data.to;
         virtualData.slides = data.slides;
         virtualData.offset = data.offset;
+      },
+    },
+    on: {
+      slideChange: () => {
+        isReachEnd.value = sliderInstance.value?.isEnd || false;
+        isReachStart.value = sliderInstance.value?.isBeginning || false;
       },
     },
   };
