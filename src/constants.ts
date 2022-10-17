@@ -107,3 +107,4 @@ export const ERROR_EXPIRED_TOKEN =
 export const OFFERS_FRAME_ID = "offers-frame";
 export const PAYMENT_FRAME_ID = "payment-frame";
 export const REDEEM_POINT_VOUCHER_NAME = "REDEEMCODE";
+export const DEFAULT_ERROR_MESSAGE = "Oops, something went wrong";

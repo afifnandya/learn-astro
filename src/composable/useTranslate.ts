@@ -5,6 +5,8 @@ import commonEN from "@/locales/en/common.json";
 import commonTH from "@/locales/th/common.json";
 import homeEN from "@/locales/en/home.json";
 import homeTH from "@/locales/th/home.json";
+import restaurantEN from "@/locales/en/restaurant.json";
+import restaurantTH from "@/locales/th/restaurant.json";
 import Cookies from "js-cookie";
 import { isClient } from "@/helper/env";
 import { DEFAULT_LANG } from "@/constants";
@@ -15,6 +17,7 @@ let isClientInit = false;
 const resources = {
   // debug: true,
   en: {
+    restaurant: restaurantEN,
     home: homeEN,
     common: commonEN,
     translation: {
@@ -23,6 +26,7 @@ const resources = {
     },
   },
   th: {
+    restaurant: restaurantTH,
     home: homeTH,
     common: commonTH,
     translation: {

@@ -1,9 +1,8 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import Navbar from "@section/navbar/Navbar.astro";
+import Layout from "@/layouts/Layout.astro";
 import HomeAPIRequest from "@/partial/home/HomeAPIRequest.vue";
 import HomeBanner from "@/partial/home/HomeBanner.vue";
-import { setupConfig, getLang, setServerLang, config } from "@/stores/config";
+import { setupConfig, getLang, config } from "@/stores/config";
 import "@/assets/css/index.css";
 import { selectedCityId } from "@/stores/city";
 import { init } from "@/composable/useTranslate";
@@ -16,15 +15,12 @@ import "@/partial/home/home.scss";
 import { formatThousand } from "@/helper/string";
 // await setupConfig();
 const params = Astro.params;
-setServerLang(params.lang as string);
-
 await init(getLang());
 ---
 
 <Layout title="Welcome to Astro.">
   <HomeAPIRequest client:load />
   <main class="">
-    <Navbar />
     <HomeBanner
       image=""
       totalCover={formatThousand(config.value.totalCovers)}

@@ -6,5 +6,10 @@
   "review_one": "review",
   "review_other": "reviews",
   "netPerson": "NET/person",
-  "netSet": "NET/set"
+  "netSet": "NET/set",
+  "rating_one": "{{count}} Review",
+  "rating_other": "{{count}} Reviews",
+  "viewOtherBranch": "View other branches",
+  "acceptVoucher": "Accept Voucher",
+  "calculateDeliveryFee": "calculate delivery fee"
 }

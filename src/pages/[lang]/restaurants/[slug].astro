@@ -1,0 +1,57 @@
+---
+import { getRestaurantBySlug } from "@/api/restaurant/getBySlug";
+import Layout from "@/layouts/Layout.astro";
+import RestaurantHeader from "@/partial/restaurant_detail/RestaurantHeader.vue";
+const { slug } = Astro.params;
+const restaurant = {
+  name: "",
+  icon: "",
+  cuisine: {
+    id: 1,
+    name: "Seafood",
+  },
+  location: {
+    id: 1,
+    name: "Seafood",
+  },
+  tags: [
+    {
+      id: 1,
+      label: "Seafood",
+    },
+  ],
+};
+const lastOrder = "1 hour ago";
+
+const { isSuccess, data, message } = await getRestaurantBySlug({
+  slug: slug as string,
+});
+// console.log(isSuccess, data);
+
+if (isSuccess && data) {
+  const { name, logoUrl } = data.data.attributes;
+  restaurant.name = name;
+  restaurant.icon = logoUrl.medium;
+}
+---
+
+<Layout title="Restaurant Page">
+  <div class="container mx-auto">
+    <RestaurantHeader
+      name={restaurant.name}
+      icon={restaurant.icon}
+      earlyMaxReview={10}
+      earlyReviewPoint={100}
+      rating={5}
+      ratingCount={100}
+      cuisine={restaurant.cuisine}
+      location={restaurant.location}
+      branchId={0}
+      direction=""
+      tags={restaurant.tags}
+      lastOrder={lastOrder}
+      showAcceptVoucher={true}
+      showInputLocation={true}
+    />
+  </div>
+</Layout>

@@ -53,7 +53,7 @@ const props = defineProps({
     required: true,
   },
   width: {
-    type: String,
+    type: [String, Number],
     required: true,
   },
   height: {
@@ -67,8 +67,18 @@ const props = defineProps({
 });
 
 const { sources, width, src, height, useMutator } = props;
-const widthInNumber = typeof width === "string" ? parseInt(width) : 0;
-const heightInNumber = typeof height === "string" ? parseInt(height) : 0;
+const widthInNumber =
+  typeof width === "string"
+    ? parseInt(width)
+    : typeof width === "number"
+    ? width
+    : 0;
+const heightInNumber =
+  typeof height === "string"
+    ? parseInt(height)
+    : typeof height === "number"
+    ? height
+    : 0;
 const imageSources: {
   format: string | undefined;
   mediaQuery: string | undefined;
