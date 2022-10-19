@@ -1,4 +1,8 @@
-import type { FeaturedRestaurant } from "@/types/Restaurant";
+import type {
+  FeaturedRestaurant,
+  Restaurant,
+  RestaurantAttributes,
+} from "@/types/Restaurant";
 import {
   PACKAGE_CODE_AYCE,
   PACKAGE_CODE_BFP,
@@ -9,16 +13,27 @@ import {
 } from "@/constants";
 import { isNewRestaurant } from "@/helper/restaurant";
 import { rebuildAssetURL } from "@/helper/url";
+import {
+  isArray,
+  isBoolean,
+  isNumber,
+  isObject,
+  isString,
+} from "@/helper/dataType";
 
-type Attr = FeaturedRestaurant["attributes"];
+type FeaturedRestaurantAttr = FeaturedRestaurant["attributes"];
 
-interface FeaturedRestaurantModel extends Attr {
+interface FeaturedRestaurantModel extends FeaturedRestaurantAttr {
   id: string;
   anyDeliveryPackage: boolean;
   anyDineInPackage: boolean;
   anyXperiencePackage: boolean;
   isNewRestaurant: boolean;
   isFavourited: boolean;
+}
+
+interface RestaurantModel extends RestaurantAttributes {
+  id: string;
 }
 
 function featuredResturant(param: FeaturedRestaurant) {
@@ -86,10 +101,10 @@ function featuredResturant(param: FeaturedRestaurant) {
       format: price.format,
     },
     priceV2: {
-      amount: price.amount,
-      currency: price.currency,
-      symbol: price.symbol,
-      format: price.format,
+      amount: priceV2.amount,
+      currency: priceV2.currency,
+      symbol: priceV2.symbol,
+      format: priceV2.format,
     },
     pricingType: pricingType,
     covid19Safety: covid19Safety,
@@ -111,5 +126,209 @@ function featuredResturant(param: FeaturedRestaurant) {
   return restaurant;
 }
 
-export { featuredResturant };
+function restaurant(param: Restaurant): RestaurantModel {
+  const {
+    lowestAycePrice,
+    lowestPpPrice,
+    lowestXpPrice,
+    lowestHsPrice,
+    lowestBfpPrice,
+    lowestHahPrice,
+    lowestSmPrice,
+    pricePerPerson,
+    priceAndPricingType,
+    isDeleted,
+    lat,
+    lng,
+    largestTable,
+    branchId,
+    minPartySize,
+    name,
+    names,
+    slug,
+    favorited,
+    allowBooking,
+    availability,
+    reviewsCount,
+    reviewsScore,
+    mapLocation,
+    promotedByHh,
+    enableBigGroupFeature,
+    location,
+    primaryCuisine,
+    primaryLocation,
+    imageCoverUrl,
+    cuisine,
+    locations,
+    canonicalLink,
+    lastBookingWasMade,
+    totalCovers,
+    timeSlots,
+    reservationSystemOnly,
+    breadcrumbs,
+    address,
+    parking,
+    cookingTime,
+    corkageCharge,
+    foodDetails,
+    daysInAdvance,
+    openingHours,
+    ambience,
+    expiryDate,
+    smallNote,
+    acceptKids,
+    tags,
+    acceptVoucher,
+    selfPickupMessage,
+    platform,
+    cuisines,
+    link,
+    seo,
+    customText,
+    recordGuests,
+    bookingFlow,
+    myMoobanVrLink,
+    description,
+    customSeats,
+    logoUrl,
+    customSectionTitle,
+    customSectionContent,
+    availablePackageTypes,
+    reservationDurationInHours,
+    openingHoursShort,
+    weekdayOpeningHours,
+    openingHoursV2,
+    hashtags,
+    videos,
+    jsonld,
+    linkToGroupLandingPage,
+    gbPrimepayPublicKey,
+    supportOrderNow,
+    hasDeliveryPricingTier,
+    phone,
+    phoneForDelivery,
+    covid19Rating,
+  } = param.attributes;
+  const restaurant: RestaurantModel = {
+    id: isString(param.id),
+    lowestAycePrice: isString(lowestAycePrice || ""),
+    lowestPpPrice: isString(lowestPpPrice || ""),
+    lowestXpPrice: isString(lowestXpPrice || ""),
+    lowestHsPrice: isString(lowestHsPrice || ""),
+    lowestBfpPrice: isString(lowestBfpPrice || ""),
+    lowestSmPrice: isString(lowestSmPrice || ""),
+    lowestHahPrice: isString(lowestHahPrice || ""),
+    pricePerPerson: {
+      amount: isString(pricePerPerson.amount),
+      currency: isString(pricePerPerson.currency),
+      symbol: isString(pricePerPerson.symbol),
+      format: isString(pricePerPerson.format),
+    },
+    priceAndPricingType: {
+      amount: isNumber(priceAndPricingType.amount),
+      currency: isString(priceAndPricingType.currency),
+      symbol: isString(priceAndPricingType.symbol),
+      format: isString(priceAndPricingType.format),
+      pricingType: isString(priceAndPricingType.pricingType),
+    },
+    isDeleted: isBoolean(isDeleted),
+    lat: isString(lat),
+    lng: isString(lng),
+    largestTable: isNumber(largestTable),
+    branchId: isNumber(branchId),
+    minPartySize: isNumber(minPartySize),
+    name: isString(name),
+    names: {
+      th: isString(names.th),
+      en: isString(names.en),
+    },
+    slug: isString(slug),
+    favorited: isBoolean(favorited),
+    allowBooking: isBoolean(allowBooking),
+    availability: isString(availability),
+    reviewsScore: isNumber(reviewsScore),
+    reviewsCount: isNumber(reviewsCount),
+    mapLocation: isString(mapLocation),
+    promotedByHh: isBoolean(promotedByHh),
+    enableBigGroupFeature: isBoolean(enableBigGroupFeature),
+    location: isString(location),
+    primaryLocation: {
+      id: isNumber(primaryLocation.id),
+      name: isString(primaryLocation.name),
+    },
+    cuisine: isString(cuisine),
+    primaryCuisine: {
+      id: isNumber(primaryCuisine.id),
+      name: isString(primaryCuisine.name),
+    },
+    imageCoverUrl: {
+      thumb: isString(imageCoverUrl.thumb),
+      large: isString(imageCoverUrl.large),
+      square: isString(imageCoverUrl.square),
+    },
+    canonicalLink: isString(canonicalLink),
+    lastBookingWasMade: isString(lastBookingWasMade),
+    totalCovers: isNumber(totalCovers),
+    timeSlots: isObject(timeSlots),
+    reservationSystemOnly: isBoolean(reservationSystemOnly),
+    breadcrumbs: [],
+    address: isString(address),
+    parking: isBoolean(parking),
+    corkageCharge: isString(corkageCharge),
+    openingHours: openingHours,
+    foodDetails: foodDetails,
+    daysInAdvance: isNumber(daysInAdvance),
+    ambience: isString(ambience || ""),
+    expiryDate: isString(expiryDate),
+    smallNote: isString(smallNote || ""),
+    acceptKids: isBoolean(acceptKids),
+    selfPickupMessage: isString(selfPickupMessage || ""),
+    customText: isString(customText || ""),
+    recordGuests: isBoolean(recordGuests),
+    bookingFlow: isString(bookingFlow),
+    myMoobanVrLink: isString(myMoobanVrLink),
+    acceptVoucher: isBoolean(acceptVoucher),
+    description: isString(description),
+    customSeats: isArray(customSeats),
+    tags: isArray(tags),
+    logoUrl: {
+      medium: isString(logoUrl.medium),
+      thumb: isString(logoUrl.thumb),
+    },
+    platform: isArray(platform),
+    customSectionTitle: isString(customSectionTitle),
+    customSectionContent: isString(customSectionContent),
+    availablePackageTypes: isArray(availablePackageTypes),
+    reservationDurationInHours: isString(reservationDurationInHours),
+    openingHoursShort: isString(openingHoursShort),
+    weekdayOpeningHours: isObject(weekdayOpeningHours),
+    openingHoursV2: isString(openingHoursV2 || ""),
+    hashtags: isArray(hashtags),
+    videos: isArray(videos),
+    locations: isArray(locations),
+    cuisines: isArray(cuisines),
+    jsonld: isString(jsonld || ""),
+    link: isString(link),
+    seo: {
+      title: isString(seo.title),
+      description: isString(seo.description),
+      keywords: isString(seo.keywords),
+    },
+    linkToGroupLandingPage: isString(linkToGroupLandingPage),
+    gbPrimepayPublicKey: isString(gbPrimepayPublicKey),
+    supportOrderNow: isBoolean(supportOrderNow),
+    cookingTime: isNumber(cookingTime),
+    hasDeliveryPricingTier: isBoolean(hasDeliveryPricingTier),
+    phone: isString(phone),
+    phoneForDelivery: isString(phoneForDelivery),
+    covid19Rating: {
+      overallCleanliness: isString(covid19Rating.overallCleanliness),
+      socialDistancing: isString(covid19Rating.socialDistancing),
+      staffProtection: isString(covid19Rating.staffProtection),
+    },
+  };
+  return restaurant;
+}
+
+export { featuredResturant, restaurant };
 export type { FeaturedRestaurantModel };

@@ -1,6 +1,7 @@
 ---
 import Navbar from "@section/navbar/Navbar.astro";
-import { setServerLang } from "@/stores/config";
+import { setServerLang, getLang } from "@/stores/config";
+import { init } from "@/composable/useTranslate";
 export interface Props {
   title: string;
 }
@@ -8,7 +9,7 @@ export interface Props {
 const { title } = Astro.props as Props;
 const { lang } = Astro.params;
 setServerLang(lang as string);
-console.log("LAYOUT LANG", lang);
+await init(getLang());
 ---
 
 <!DOCTYPE html>

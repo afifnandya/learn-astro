@@ -5,7 +5,6 @@ import HomeBanner from "@/partial/home/HomeBanner.vue";
 import { setupConfig, getLang, config } from "@/stores/config";
 import "@/assets/css/index.css";
 import { selectedCityId } from "@/stores/city";
-import { init } from "@/composable/useTranslate";
 import HomeRestaurantSlider from "@/partial/home/HomeRestaurantSlider.vue";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -15,7 +14,6 @@ import "@/partial/home/home.scss";
 import { formatThousand } from "@/helper/string";
 // await setupConfig();
 const params = Astro.params;
-await init(getLang());
 ---
 
 <Layout title="Welcome to Astro.">

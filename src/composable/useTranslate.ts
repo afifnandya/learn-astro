@@ -47,7 +47,7 @@ async function init(lang?: string) {
   Cookies.set("astro-lang", usedLang);
   const option: InitOptions = {
     lng: usedLang,
-    ns: ["common"],
+    ns: ["common", "restaurant"],
     defaultNS: "common",
     fallbackNS: "common",
     // debug: true,

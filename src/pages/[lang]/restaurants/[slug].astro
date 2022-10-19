@@ -1,11 +1,40 @@
 ---
 import { getRestaurantBySlug } from "@/api/restaurant/getBySlug";
+import { generateLastBookingCTA } from "@/helper/restaurant";
+import { rebuildAssetURL } from "@/helper/url";
 import Layout from "@/layouts/Layout.astro";
 import RestaurantHeader from "@/partial/restaurant_detail/RestaurantHeader.vue";
+import { config } from "@/stores/config";
+
+type Restaurant = {
+  name: string;
+  icon: string;
+  bramchId: number;
+  openingHoursShort: string;
+  reviewCount: number;
+  reviewScore: string;
+  lastOrder: string;
+  cuisine: {
+    id: number;
+    name: string;
+  };
+  location: {
+    id: number;
+    name: string;
+  };
+  tags: { id: number; label: string }[];
+  featuredImages: { id: string; caption: string; image: string }[];
+  reservationSystemOnly: boolean;
+};
+
 const { slug } = Astro.params;
-const restaurant = {
+const restaurant: Restaurant = {
   name: "",
   icon: "",
+  bramchId: 0,
+  openingHoursShort: "",
+  reviewCount: 0,
+  reviewScore: "5",
   cuisine: {
     id: 1,
     name: "Seafood",
@@ -20,18 +49,58 @@ const restaurant = {
       label: "Seafood",
     },
   ],
+  featuredImages: [],
+  lastOrder: "",
+  reservationSystemOnly: false,
 };
-const lastOrder = "1 hour ago";
 
+const earlyBirdPoint = config.value.dynamicPoints.earlyBird.point;
 const { isSuccess, data, message } = await getRestaurantBySlug({
   slug: slug as string,
 });
-// console.log(isSuccess, data);
 
 if (isSuccess && data) {
-  const { name, logoUrl } = data.data.attributes;
+  const {
+    name,
+    logoUrl,
+    branchId,
+    primaryCuisine,
+    primaryLocation,
+    openingHoursShort,
+    reviewsCount,
+    reviewsScore,
+    hashtags,
+    lastBookingWasMade,
+    totalCovers,
+    reservationSystemOnly,
+  } = data.data.attributes;
+  const included = data.included;
   restaurant.name = name;
-  restaurant.icon = logoUrl.medium;
+  restaurant.bramchId = branchId;
+  restaurant.cuisine = primaryCuisine;
+  restaurant.location = primaryLocation;
+  restaurant.icon = rebuildAssetURL(logoUrl.medium);
+  restaurant.openingHoursShort = openingHoursShort;
+  restaurant.reviewCount = reviewsCount;
+  restaurant.reviewScore =
+    reviewsScore % 1 === 0 ? `${reviewsScore}.0` : reviewsScore.toString();
+  restaurant.tags = hashtags;
+  restaurant.lastOrder = generateLastBookingCTA({
+    lastBooking: lastBookingWasMade,
+    reviewsCount: reviewsCount,
+    totalCovers: totalCovers,
+    earlyReviewPoint: earlyBirdPoint,
+  });
+  restaurant.reservationSystemOnly = reservationSystemOnly;
+  included.forEach((inc) => {
+    if (inc.type === "restaurants-pictures") {
+      restaurant.featuredImages.push({
+        id: inc.id,
+        caption: inc.attributes.caption,
+        image: rebuildAssetURL(inc.attributes.item.url),
+      });
+    }
+  });
 }
 ---
 
@@ -42,16 +111,20 @@ if (isSuccess && data) {
       icon={restaurant.icon}
       earlyMaxReview={10}
       earlyReviewPoint={100}
-      rating={5}
-      ratingCount={100}
+      rating={restaurant.reviewScore}
+      ratingCount={restaurant.reviewCount}
       cuisine={restaurant.cuisine}
       location={restaurant.location}
-      branchId={0}
+      branchId={restaurant.bramchId}
       direction=""
       tags={restaurant.tags}
-      lastOrder={lastOrder}
+      lastOrder={restaurant.lastOrder}
       showAcceptVoucher={true}
       showInputLocation={true}
+      featuredImages={restaurant.featuredImages}
+      openingHoursSummary={restaurant.openingHoursShort}
+      showTags={!restaurant.reservationSystemOnly}
+      showViewBranch={!restaurant.reservationSystemOnly}
     />
   </div>
 </Layout>

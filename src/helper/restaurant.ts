@@ -29,19 +29,29 @@ export function generateLastBookingCTA({
   lastBooking,
   reviewsCount,
   totalCovers,
+  earlyReviewPoint,
 }: {
   lastBooking: string;
   reviewsCount: number;
   totalCovers: number;
+  earlyReviewPoint: number;
 }) {
   const lastBookingMadeDate = new Date(lastBooking).getTime();
   const dayBeforeYesterday = new Date().getTime() - 60 * 60 * 1000 * 24 * 3;
   if (dayBeforeYesterday <= lastBookingMadeDate) {
     const relative = relativeTime(lastBookingMadeDate);
-    return `${translate("lastReservationCTA")} ${relative}`;
+    return `${translate("lastReservationCTA", {
+      ns: "restaurant",
+    })} ${relative}`;
   }
   if (reviewsCount < 5) {
-    return "New Restaurant";
+    return translate("newRestaurantCTA", {
+      point: earlyReviewPoint,
+      ns: "restaurant",
+    });
   }
-  return `Total booking ${totalCovers}`;
+  return translate("totalRestaurantBookingCTA", {
+    total: totalCovers,
+    ns: "restaurant",
+  });
 }

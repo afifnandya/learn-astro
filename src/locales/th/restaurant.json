@@ -1,3 +1,6 @@
 {
-  "firstReview": "ใหม่ {{review}} รีวิวแรก รับไปเลย Voucher {{point}} บาท!"
+  "firstReview": "ใหม่ {{review}} รีวิวแรก รับไปเลย Voucher {{point}} บาท!",
+  "lastReservationCTA": "ร้านฮิต! จองครั้งสุดท้ายเมื่อ",
+  "newRestaurantCTA": "ใหม่! จองและรีวิวเพื่อรับเวาเชอร์ {{point}} บาท!",
+  "totalRestaurantBookingCTA": "มาแรง! {{total}} คนจองร้านนี้แล้ว"
 }

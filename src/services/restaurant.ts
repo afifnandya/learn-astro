@@ -50,5 +50,4 @@ function createDummyFeaturedRestaurant() {
   };
   return restaurant;
 }
-
 export { createDummyFeaturedRestaurant };

@@ -1,3 +1,6 @@
 {
-  "firstReview": "First {{review}} people review, Get {{point}} hungry vouchers!"
+  "firstReview": "First {{review}} people review, Get {{point}} hungry vouchers!",
+  "lastReservationCTA": "Trending! Last booking was made",
+  "newRestaurantCTA": "New! Book & review to earn {{point}} hungry vouchers!",
+  "totalRestaurantBookingCTA": "Popular! Booked by {{total}} people"
 }
